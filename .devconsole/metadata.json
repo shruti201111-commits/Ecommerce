@@ -1,0 +1,6 @@
+{
+  "name": "EarnCart",
+  "description": "A platform where users earn points by shopping and redeem them via UPI. Features separate panels for users and admins.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

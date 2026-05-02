@@ -1,0 +1,93 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and wallet information.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "points": { "type": "number" },
+        "pendingPoints": { "type": "number" },
+        "isBlocked": { "type": "boolean" },
+        "blockedUntil": { "type": "string", "format": "date-time" },
+        "blockReason": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "email", "role", "points", "pendingPoints", "isBlocked", "createdAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "A product listed for users to earn points.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "image": { "type": "string" },
+        "link": { "type": "string" },
+        "points": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "description", "image", "link", "points", "createdAt"]
+    },
+    "Claim": {
+      "title": "Claim",
+      "description": "A claim submitted by a user for a product purchase.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "productId": { "type": "string" },
+        "productTitle": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "orderDate": { "type": "string" },
+        "retailer": { "type": "string" },
+        "orderDetails": { "type": "string" },
+        "orderId": { "type": "string" },
+        "orderAmount": { "type": "number" },
+        "productName": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "points": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "productId", "productTitle", "userEmail", "orderDate", "retailer", "orderDetails", "orderId", "orderAmount", "productName", "status", "points", "createdAt", "updatedAt"]
+    },
+    "Redeem": {
+      "title": "Redeem",
+      "description": "A request by a user to redeem points via UPI.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "upiId": { "type": "string" },
+        "points": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "approved", "paid", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "upiId", "points", "status", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "products/{productId}": {
+      "schema": "Product",
+      "description": "Products for earnings"
+    },
+    "claims/{claimId}": {
+      "schema": "Claim",
+      "description": "Purchase verification claims"
+    },
+    "redeems/{redeemId}": {
+      "schema": "Redeem",
+      "description": "UPI redeem requests"
+    }
+  }
+}
